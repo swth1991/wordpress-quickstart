@@ -490,6 +490,7 @@
                 "accessModes": [
                     "ReadWriteOnce"
                 ],
+		"storageClassName": "managed-nfs-storage",
                 "resources": {
                     "requests": {
                         "storage": "${DATABASE_VOLUME_SIZE}"
@@ -510,6 +511,7 @@
                 "accessModes": [
                     "${WORDPRESS_VOLUME_TYPE}"
                 ],
+		"storageClassName": "managed-nfs-storage",
                 "resources": {
                     "requests": {
                         "storage": "${WORDPRESS_VOLUME_SIZE}"
