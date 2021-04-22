@@ -22,7 +22,13 @@ fi
 mkdir -p /opt/app-root/downloads
 
 curl -Ls http://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz > /opt/app-root/downloads/wordpress.tar.gz
+if [ -f "/opt/app-root/downloads/wordpress.tar.gz" ]; then
+  echo "Download Succeeded"
+else
+  echo "ERROR : Download Failed"
+fi
 echo ${WORDPRESS_INSTALL_VERSION} > /opt/app-root/downloads/wordpress-version.txt
+cat /opt/app-root/downloads/wordpress-version.txt
 
 # Verify the WordPress sources.
 
@@ -33,6 +39,8 @@ if [ "${TARBALL_MD5}" != "${EXPECTS_MD5}" ]; then
     echo "ERROR: WordPress ${WORDPRESS_INSTALL_VERSION} MD5 checksum mismatch. The WordPress tar file that was downloaded does not match the signature that it was expected to have."
     exit 1
 fi
+
+echo "Passed MD5 check"
 
 # This S2I assemble script is only used when creating the custom image.
 # For when running the image, or using it as a S2I builder, we use a second
@@ -55,3 +63,4 @@ rm -rf /tmp/src
 # Fixup permissions on directories and files.
 
 fix-permissions /opt/app-root
+echo "Done"
